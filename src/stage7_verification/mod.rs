@@ -18,6 +18,7 @@ mod tests {
             signatures: vec!["s1".into(), "s2".into()],
             node_ids: vec!["n1".into(), "n2".into()],
             timestamp: 0,
+            confidence_score: 1.0,
         };
         let anchors = vec![AnchorReceipt { chain: "Base".into(), tx_id: "tx1".into(), cid: "QmABC".into() }];
         

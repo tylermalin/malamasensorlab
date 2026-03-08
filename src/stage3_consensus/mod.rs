@@ -36,7 +36,7 @@ mod tests {
     #[test]
     fn test_voting_consensus() {
         let nodes = vec!["N1".to_string(), "N2".to_string(), "N3".to_string()];
-        let mut session = VotingSession::new("batch_1".to_string(), nodes);
+        let mut session = VotingSession::new("batch_1".to_string(), nodes, 1.0);
         
         // Threshold for 3 is (2*3)/3 + 1 = 3
         session.add_vote(Vote {
@@ -69,7 +69,7 @@ mod tests {
         let nodes = vec!["N1".to_string(), "N2".to_string(), "N3".to_string()];
         let mut manager = ConsensusManager::new(nodes, 3);
         
-        manager.start_consensus("batch_678".to_string());
+        manager.start_consensus("batch_678".to_string(), 1.0);
         assert_eq!(manager.state, ConsensusState::VOTING);
 
         // Send votes

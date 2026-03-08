@@ -7,10 +7,11 @@ pub struct ConsensusProof {
     pub signatures: Vec<String>, // Aggregated signatures from approving nodes
     pub node_ids: Vec<String>,   // List of nodes that signed
     pub timestamp: i64,
+    pub confidence_score: f64,    // Added for Stage 6 Prompt 44
 }
 
 impl ConsensusProof {
-    pub fn from_votes(batch_id: String, votes: Vec<Vote>) -> Self {
+    pub fn from_votes(batch_id: String, votes: Vec<Vote>, confidence_score: f64) -> Self {
         let (node_ids, signatures): (Vec<_>, Vec<_>) = votes
             .into_iter()
             .map(|v| (v.node_id, v.signature))
@@ -20,6 +21,7 @@ impl ConsensusProof {
             batch_id,
             signatures,
             node_ids,
+            confidence_score,
             timestamp: chrono::Utc::now().timestamp(),
         }
     }

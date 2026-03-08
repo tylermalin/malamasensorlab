@@ -33,6 +33,14 @@ impl SettlementManager {
             return Err("Integrity verification failed. Settlement aborted.".to_string());
         }
 
+        // 2. Confidence Gate (Prompt 44)
+        if consensus_proof.confidence_score < 0.80 {
+            return Err(format!(
+                "Confidence score {} below 80% threshold. Manual review required.",
+                consensus_proof.confidence_score
+            ));
+        }
+
         // 2. Parallel multi-chain minting
         let mut handles = Vec::new();
         for adapter in &self.adapters {

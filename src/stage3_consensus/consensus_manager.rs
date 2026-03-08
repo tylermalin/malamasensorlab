@@ -28,9 +28,9 @@ impl ConsensusManager {
         }
     }
 
-    pub fn start_consensus(&mut self, batch_id: String) {
+    pub fn start_consensus(&mut self, batch_id: String, confidence_score: f64) {
         let assigned_nodes = self.partition_manager.assign_nodes(&batch_id);
-        self.session = Some(VotingSession::new(batch_id, assigned_nodes));
+        self.session = Some(VotingSession::new(batch_id, assigned_nodes, confidence_score));
         self.state = ConsensusState::VOTING;
     }
 
@@ -43,7 +43,11 @@ impl ConsensusManager {
                         .cloned()
                         .collect();
                     
-                    self.proof = Some(ConsensusProof::from_votes(session.batch_id.clone(), approves));
+                    self.proof = Some(ConsensusProof::from_votes(
+                        session.batch_id.clone(),
+                        approves,
+                        session.confidence_score,
+                    ));
                     self.state = ConsensusState::COMMITTED;
                 } else if session.is_rejected() {
                     self.state = ConsensusState::REJECTED;

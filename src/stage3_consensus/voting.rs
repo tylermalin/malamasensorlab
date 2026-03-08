@@ -19,14 +19,16 @@ pub struct VotingSession {
     pub batch_id: String,
     pub required_nodes: Vec<String>,
     pub votes: HashMap<String, Vote>,
+    pub confidence_score: f64, // Added for Stage 6 Prompt 44
 }
 
 impl VotingSession {
-    pub fn new(batch_id: String, required_nodes: Vec<String>) -> Self {
+    pub fn new(batch_id: String, required_nodes: Vec<String>, confidence_score: f64) -> Self {
         Self {
             batch_id,
             required_nodes,
             votes: HashMap::new(),
+            confidence_score,
         }
     }
 
