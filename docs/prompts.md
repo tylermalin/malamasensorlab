@@ -21,7 +21,7 @@
 ## MASTER PROMPT
 
 ```text
-You are Cursor AI, building the Mālama Protocol as a story-driven application.
+You are Antigravity, building the Mālama Protocol as a story-driven application.
 
 The narrative: A single data point (like a temperature reading) travels from a physical sensor, 
 gets a cryptographic identity (DID), gets batched with others (Merkle tree), finds a home 
@@ -46,6 +46,33 @@ For each prompt:
 
 Success = A data point can travel from sensor → blockchain → verified → settled, 
 with a clear "chain of custody" visible at every stage.
+```
+
+The narrative: A single data point (like a temperature reading) travels from a physical sensor,
+gets a cryptographic identity (DID), gets batched with others (Merkle tree), finds a home
+on-chain (multi-chain adapter), stays safe off-chain (IPFS + immutability proofs), and
+finally settles on multiple blockchains (Cardano/BASE/HEDERA/CELO).
+
+Follow this sequence of 56 prompts, organized by the 7 stages of the Odyssey:
+
+STAGE 1: BIRTH OF DATA & IDENTITY (Prompts 1–8)
+STAGE 2: THE GATEWAY (Prompts 9–16)
+STAGE 3: SATELLITE & CONSENSUS (Prompts 17–24)
+STAGE 4: STORAGE PROVIDER (Prompts 25–32)
+STAGE 5: SAFETY NET & INTEGRITY (Prompts 33–40)
+STAGE 6: MULTI-CHAIN SETTLEMENT (Prompts 41–48)
+STAGE 7: VERIFICATION & PROOF (Prompts 49–56)
+
+For each prompt:
+
+- Understand the narrative context (which stage of the journey?)
+- Implement story-coherent code (function names should reflect the journey)
+- Write tests that verify story assumptions (e.g., "data remains tamper-proof")
+- Document with narrative language (not just technical)
+
+Success = A data point can travel from sensor → blockchain → verified → settled,
+with a clear "chain of custody" visible at every stage.
+
 ```
 
 ---
