@@ -52,7 +52,7 @@ pub fn generate_sensor_did(sensor_type: &str, manufacturer: &str, lat: f64, lon:
     let verifying_key = VerifyingKey::from(&signing_key);
     
     let uuid = Uuid::new_v4();
-    let did = format!("did:cardano:sensor:{}", uuid);
+    let did = format!("did:malama:sensor:{}", uuid);
     let key_id = format!("{}#key-1", did);
     
     // Convert public key to JWK manually

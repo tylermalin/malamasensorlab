@@ -1,6 +1,11 @@
 pub mod audit;
 pub mod proof_generator;
 pub mod explorer_logic;
+pub mod explorer_api;
+pub mod security_tests;
+pub mod e2e_tests;
+pub mod performance;
+pub mod mainnet_deploy;
 
 #[cfg(test)]
 mod tests {
@@ -29,10 +34,12 @@ mod tests {
             consensus_proof,
             storage_anchors: anchors,
             settlement_receipts: vec![],
+            registry_receipts: vec![],
+            slashing_events: vec![],
             timestamp: 123456789,
         };
 
-        let proof = ProofGenerator::generate(audit, 0xABC);
+        let proof = ProofGenerator::generate(audit, 0xABC, 12345);
         assert!(proof.verification_passed);
         assert_eq!(proof.status, "VERIFIED");
     }
