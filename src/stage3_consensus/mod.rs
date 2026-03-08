@@ -2,6 +2,8 @@ pub mod partitioning;
 pub mod voting;
 pub mod proof;
 pub mod consensus_manager;
+pub mod quorum;
+pub mod reputation;
 
 #[cfg(test)]
 mod tests {
