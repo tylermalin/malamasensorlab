@@ -2,6 +2,7 @@ pub mod did_generator;
 pub mod ownership_proof;
 pub mod sensor_state;
 pub mod provenance;
+pub mod reading_signer;
 
 use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
