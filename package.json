@@ -1,0 +1,17 @@
+{
+  "name": "malama-sdk",
+  "version": "0.1.0",
+  "description": "Mālama Protocol TypeScript SDK — Odyssey of a Data Point",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ts/**/*.ts"
+  },
+  "keywords": ["did", "sensor", "blockchain", "carbon", "malama"],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  }
+}

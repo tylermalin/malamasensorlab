@@ -1,0 +1,8 @@
+/target/
+/.cargo/
+/node_modules/
+/dist/
+*.log
+.DS_Store
+.env
+.cache/
