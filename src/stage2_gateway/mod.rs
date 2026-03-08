@@ -3,6 +3,13 @@ pub mod merkle_tree;
 pub mod wal;
 pub mod node;
 pub mod batch_engine;
+pub mod serialization;
+pub mod scheduler;
+pub mod kafka_topics;
+pub mod backpressure;
+pub mod message_ordering;
+pub mod deduplication;
+pub mod batch_validator;
 
 #[cfg(test)]
 mod tests {
