@@ -5,6 +5,8 @@ pub mod provenance;
 pub mod reading_signer;
 pub mod reputation;
 pub mod cardano_nft;
+pub mod did_hasher;
+pub mod ipfs_storage;
 
 use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
@@ -24,10 +26,10 @@ pub struct SensorReading {
 mod tests {
     use super::did_generator::*;
     use super::ownership_proof::*;
-    use super::sensor_state::*;
+    use super::sensor_state::{SensorLifecycle, SensorState, sign_transition};
     use super::provenance::*;
     use std::collections::HashSet;
-    use k256::ecdsa::{SigningKey, signature::Signer};
+    use k256::ecdsa::{SigningKey, VerifyingKey, signature::Signer};
     use rand::rngs::OsRng;
     use chrono::Utc;
 
@@ -61,18 +63,16 @@ mod tests {
 
     #[test]
     fn test_state_transitions() {
-        let result = generate_sensor_did("temperature", "Tropic Square", 43.8, -115.9);
-        let mut sensor = Sensor::new(result.did);
-        let verifying_key = k256::ecdsa::VerifyingKey::from(&result.private_key);
+        let admin_sk = SigningKey::random(&mut OsRng);
+        let admin_vk = VerifyingKey::from(&admin_sk);
+        let did = "did:cardano:sensor:test-001";
+        let mut sensor = SensorLifecycle::new(did, admin_vk);
 
         let now = Utc::now();
-        let message = format!("{:?}{:?}{}", SensorState::UNREGISTERED, SensorState::REGISTERED, now.to_rfc3339());
-        let sig: k256::ecdsa::Signature = result.private_key.sign(message.as_bytes());
-        let sig_hex = hex::encode(sig.to_bytes());
-
-        let res = sensor.register(verifying_key, now, sig_hex);
-        assert!(res.is_ok());
+        sensor.register(now, &admin_sk).expect("Register must succeed");
         assert_eq!(sensor.state(), SensorState::REGISTERED);
+        sensor.activate(now, &admin_sk).expect("Activate must succeed");
+        assert_eq!(sensor.state(), SensorState::ACTIVE);
     }
 
     // ── Provenance tests ─────────────────────────────────────────────────────
