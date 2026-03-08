@@ -44,4 +44,30 @@ impl LshEngine {
     pub fn hamming_distance(a: u64, b: u64) -> u32 {
         (a ^ b).count_ones()
     }
+
+    /// Prompt 33: Specialized LSH Fingerprint for sensor readings.
+    /// Summarizes data into a 32-byte hash based on statistical properties.
+    pub fn compute_lsh_fingerprint(readings: &[f64]) -> [u8; 32] {
+        if readings.is_empty() {
+            return [0u8; 32];
+        }
+        let len = readings.len() as f64;
+        let mean = readings.iter().sum::<f64>() / len;
+        let variance = readings.iter().map(|x| (x - mean).powi(2)).sum::<f64>() / len;
+        let std_dev = variance.sqrt();
+        let min = readings.iter().cloned().fold(f64::INFINITY, f64::min);
+        let max = readings.iter().cloned().fold(f64::NEG_INFINITY, f64::max);
+
+        // Format: "mean|std_dev|min|max" rounded to 2 decimal places 
+        // to provide a stable statistical fingerprint.
+        let fingerprint_str = format!("{:.2}|{:.2}|{:.2}|{:.2}", mean, std_dev, min, max);
+        
+        let mut hasher = Sha256::new();
+        hasher.update(fingerprint_str.as_bytes());
+        let result = hasher.finalize();
+        
+        let mut hash = [0u8; 32];
+        hash.copy_from_slice(&result);
+        hash
+    }
 }

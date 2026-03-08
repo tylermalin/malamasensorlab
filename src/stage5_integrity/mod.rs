@@ -1,6 +1,12 @@
 pub mod lsh_engine;
 pub mod custody;
 pub mod verifier;
+pub mod immutability;
+pub mod merkle_proof;
+pub mod ipfs_redundancy;
+pub mod integrity_check;
+pub mod retention_tiering;
+pub mod audit_system;
 
 #[cfg(test)]
 mod tests {
