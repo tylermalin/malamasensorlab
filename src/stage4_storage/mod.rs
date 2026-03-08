@@ -1,6 +1,13 @@
 pub mod ipfs_adapter;
 pub mod chain_adapters;
 pub mod storage_manager;
+pub mod pinata_uploader;
+pub mod cardano_contracts;
+pub mod base_contracts;
+pub mod hedera_integration;
+pub mod celo_integration;
+pub mod fee_optimizer;
+pub mod cross_chain_verifier;
 
 #[cfg(test)]
 mod tests {
