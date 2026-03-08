@@ -4,6 +4,7 @@ pub mod sensor_state;
 pub mod provenance;
 pub mod reading_signer;
 pub mod reputation;
+pub mod cardano_nft;
 
 use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
