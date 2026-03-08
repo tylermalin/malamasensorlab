@@ -114,7 +114,7 @@ pub struct BatchAggregator {
     pub current_batch: Vec<SensorReading>,
     pub last_window_end: DateTime<Utc>,
     /// Deduplication set: content hashes of seen readings (prevents replay within a window).
-    seen_hashes: std::collections::HashSet<String>,
+    pub(crate) seen_hashes: std::collections::HashSet<String>,
 }
 
 impl BatchAggregator {

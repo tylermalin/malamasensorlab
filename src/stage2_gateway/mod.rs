@@ -2,6 +2,7 @@ pub mod aggregator;
 pub mod merkle_tree;
 pub mod wal;
 pub mod node;
+pub mod batch_engine;
 
 #[cfg(test)]
 mod tests {
