@@ -4,6 +4,13 @@ pub mod proof;
 pub mod consensus_manager;
 pub mod quorum;
 pub mod reputation;
+pub mod graph_partitioning;
+pub mod selector;
+pub mod retry;
+pub mod slashing;
+pub mod chain_proof;
+pub mod dispute;
+pub mod health_monitor;
 
 #[cfg(test)]
 mod tests {
