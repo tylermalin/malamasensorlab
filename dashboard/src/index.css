@@ -1,26 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
   --bg-primary: #0A0A0B;
-  --bg-secondary: #141416;
-  --bg-tertiary: #1D1D20;
-  
-  --brand-primary: #00FF9C; /* Malama Green */
-  --brand-secondary: #00C2FF; /* Settlement Blue */
-  --brand-tertiary: #FF005C; /* Integrity Pink */
-  
+  --bg-secondary: #0D0D0F;
+  --bg-tertiary: #161619;
+
+  --brand-primary: #00FF9C;
+  /* Malama Green */
+  --brand-secondary: #00C2FF;
+  /* Settlement Blue */
+  --brand-tertiary: #FF005C;
+  /* Integrity Pink */
+
   --text-primary: #FFFFFF;
   --text-secondary: #A1A1A1;
-  --text-tertiary: #666666;
-  
-  --border-color: #2D2D30;
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.06);
-  
+  --text-tertiary: #555555;
+
+  --border-color: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-border: rgba(255, 255, 255, 0.05);
+
   --font-sans: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  
-  --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.4);
+
+  --shadow-premium: 0 24px 48px rgba(0, 0, 0, 0.6);
 }
 
 * {
@@ -35,62 +38,55 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  color: inherit;
-}
-
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--bg-tertiary);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-tertiary);
+  overflow: hidden;
+  height: 100vh;
 }
 
 /* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes grid-glow {
+  0% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
 }
 
-@keyframes pulse {
-  0% { opacity: 0.5; }
-  50% { opacity: 1; }
-  100% { opacity: 0.5; }
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 @keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100vh);
+  }
 }
 
 /* Utilities */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-premium);
 }
 
 .brutalist-border {
@@ -104,18 +100,52 @@ button {
 
 .text-gradient {
   background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+/* Base Layout */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 280px 1fr;
   height: 100vh;
+  background-image:
+    linear-gradient(var(--border-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+  background-size: 80px 80px;
+  background-position: center center;
+  position: relative;
+}
+
+.dashboard-grid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, transparent 0%, var(--bg-primary) 80%);
+  pointer-events: none;
 }
 
 .main-content {
   overflow-y: auto;
-  padding: 40px;
-  background: radial-gradient(circle at 50% 0%, #1a1a1c 0%, #0a0a0b 100%);
+  padding: 64px;
+  z-index: 1;
+  position: relative;
+}
+
+/* Scanline Effect */
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 255, 156, 0.05), transparent);
+  opacity: 0.2;
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+  z-index: 100;
 }

@@ -1,5 +1,5 @@
-use malama_sdk_core::*;
+use malama_sdk_core::simulation::run_odyssey_simulation;
 
 fn main() {
-    println!("Mālama Protocol SDK initialized.");
+    run_odyssey_simulation();
 }
